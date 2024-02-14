@@ -90,14 +90,14 @@ def run():
         average_rewards = 0.0
 
         for episode in range(max_episodes):
-            state = env.reset()
+            state = env.reset()[0]
             state = state.reshape([1, state_size])
             episode_transitions = []
 
             for step in range(max_steps):
                 actions_distribution = sess.run(policy.actions_distribution, {policy.state: state})
                 action = np.random.choice(np.arange(len(actions_distribution)), p=actions_distribution)
-                next_state, reward, done, _ = env.step(action)
+                next_state, reward, done, _ , _= env.step(action)
                 next_state = next_state.reshape([1, state_size])
 
                 if render:
